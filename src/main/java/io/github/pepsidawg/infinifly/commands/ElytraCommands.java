@@ -6,7 +6,7 @@ import com.sk89q.minecraft.util.commands.CommandNumberFormatException;
 import com.sk89q.minecraft.util.commands.NestedCommand;
 import io.github.pepsidawg.infinifly.util.Mode;
 import io.github.pepsidawg.infinifly.util.Velocity;
-import net.md_5.bungee.api.ChatColor;
+import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 
 public class ElytraCommands {
