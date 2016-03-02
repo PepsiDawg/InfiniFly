@@ -2,7 +2,6 @@ package io.github.pepsidawg.infinifly.listeners;
 
 import io.github.pepsidawg.infinifly.util.Mode;
 import io.github.pepsidawg.infinifly.util.Velocity;
-import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -25,11 +24,12 @@ public class FlyListener implements Listener {
 
         if(chestplate.getType().equals(Material.ELYTRA) && !event.getPlayer().isOnGround()) {
             if(velocity.getVelocityMode().equals(Mode.AUTOMATIC)) {
-                if (event.getPlayer().getLocation().getPitch() < 0)
+                if(event.getPlayer().getLocation().getPitch() < 0)
                     velocity.applyVelocity(event.getPlayer());
             } else {
                 if(event.getPlayer().isSneaking())
-                    velocity.applyVelocity(event.getPlayer());
+                    if(event.getPlayer().getExp() > 0)
+                        velocity.applyBoost(event.getPlayer());
             }
         }
     }

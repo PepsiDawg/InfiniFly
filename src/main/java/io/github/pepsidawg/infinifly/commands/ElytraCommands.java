@@ -43,9 +43,32 @@ public class ElytraCommands {
     public static void mode(CommandContext args, CommandSender sender) throws Exception{
         Mode mode;
         try { mode = Mode.valueOf(args.getString(0).toUpperCase()); }
-        catch (RuntimeException e) { throw new Exception("Invalid Elytra mode! Expected \"Automatic\" or \"Shift\""); }
+        catch (RuntimeException e) { throw new Exception("Invalid Elytra mode! Expected \"Automatic\" or \"Boost\""); }
 
         Velocity.getInstance().setVelocityMode(mode);
         sender.sendMessage(ChatColor.DARK_AQUA + "Mode set to " + ChatColor.GREEN + mode.name());
+    }
+
+    @Command(
+            aliases = {"boost"},
+            desc = "Change how boosting works",
+            usage = "<use> <regen>",
+            min = 2, max = 2
+    )
+    public static void boost(CommandContext args, CommandSender sender) throws Exception {
+        double use, regen;
+
+        use = args.getDouble(0);
+        regen = args.getDouble(1);
+
+        if( !(use > 0 && use <= 1) || !(regen >= 0 && regen <= 1)) {
+            throw new Exception("Invalid value! Expected a number between 0 and 1");
+        }
+
+        Velocity.getInstance().setPercentageUse(use);
+        Velocity.getInstance().setPercentageRegen(regen);
+
+        sender.sendMessage(ChatColor.DARK_AQUA + "Boost values set to  Use(" + ChatColor.GREEN + use  + ChatColor.DARK_AQUA + ") Regen(" + ChatColor.GREEN + regen + ChatColor.DARK_AQUA + ")");
+
     }
 }

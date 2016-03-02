@@ -4,6 +4,7 @@ import com.sk89q.bukkit.util.CommandsManagerRegistration;
 import com.sk89q.minecraft.util.commands.*;
 import io.github.pepsidawg.infinifly.commands.ElytraCommands;
 import io.github.pepsidawg.infinifly.listeners.FlyListener;
+import io.github.pepsidawg.infinifly.util.BoostRegen;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -17,12 +18,16 @@ import java.util.List;
 public class InfiniFly extends JavaPlugin {
     private static InfiniFly instance;
     private CommandsManager<CommandSender> commands;
+    private BoostRegen boostRegen;
 
     @Override
     public void onEnable() {
         instance = this;
         setupCommands();
         getServer().getPluginManager().registerEvents(new FlyListener(), this);
+        boostRegen = new BoostRegen();
+
+        boostRegen.runTaskTimerAsynchronously(this, 0L, 1L);
     }
 
     public static InfiniFly getInstance() {
